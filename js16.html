@@ -1,0 +1,42 @@
+<!-- ตัวอย่างที่ 16: สไลด์โชว์รูปภาพ (Image Slideshow) -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>ตัวอย่างที่ 16</title>
+  </head>
+  <body>
+    <div id="example16">
+    <h3>16. สไลด์โชว์รูปภาพ</h3>
+    <div class="slideshow">
+        <div>
+            <img id="slideImage" src="https://www.formula1.com/content/dam/fom-website/manual/Misc/2022manual/2022Races/ItalianGP/Pre-race/AHZQBF_SF_CAR11-1920x0_HHXUWI.jpg" width="400" height="300" alt="slideshow" >
+        </div>
+        <button onclick="changeSlide(-1)">ก่อนหน้า</button>
+        <button onclick="changeSlide(1)">ถัดไป</button>
+    </div>
+    <style>
+        .slideshow{
+            text-align: center;
+        }
+        .slideshow img{
+            max-width: 400px;
+            height: 300px;
+            margin: 10px;
+        }
+    </style>
+    
+    <script>
+        // สร้าง Array เก็บ URL รูปภาพ
+      const images = ["https://e1.365dm.com/23/02/1600x900/skysports-red-bull-verstappen_6044553.jpg", "https://www.formula1.com/content/dam/fom-website/manual/Misc/2022manual/2022Races/ItalianGP/Pre-race/AHZQBF_SF_CAR11-1920x0_HHXUWI.jpg", "https://cdn-2.motorsport.com/images/amp/YMdyjMg2/s6/mercedes-w14-1.jpg"];
+      let currentSlide = 0;
+
+      function changeSlide(direction) { //ฟังก์ชันเปลี่ยนสไลด์
+        currentSlide = (currentSlide + direction + images.length) % images.length; //คำนวณ index ของสไลด์ถัดไป
+        document.getElementById("slideImage").src = images[currentSlide]; //อัพเดทรูปภาพ
+      }
+    </script>
+    </div>
+  </body>
+</html>
