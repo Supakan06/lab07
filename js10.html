@@ -1,0 +1,95 @@
+<!-- ตัวอย่างที่ 10: การสร้างเกมเเบบง่ายๆ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ตัวอย่างที่ 10</title>
+    <style>
+      #gameArea {
+        width: 300px;
+        height: 300px;
+        border: 1px solid black;
+        position: relative;
+      }
+      #target {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        position: absolute;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>เกมคลิกเป้าหมาย</h3>
+    <p>คะแนน: <span id="score">0</span></p>
+    <div id="gameArea">
+      <div id="target" onclick="hitTarget()"></div>
+    </div>
+
+    <script>
+      let score = 0;
+
+      function hitTarget() { //เพิ่มคะเเนน
+        score++;
+        document.getElementById("score").textContent = score;
+
+        //สุ่มตำเเหน่งใหม่
+        let gameArea = document.getElementById("gameArea");
+        let target = document.getElementById("target");
+
+        let maxX = gameArea.offsetWidth - target.offsetWidth;
+        let maxY = gameArea.offsetHeight - target.offsetHeight;
+
+        let newX = Math.floor(Math.random() * maxX);
+        let newY = Math.floor(Math.random() * maxY);
+
+        target.style.left = newX + "px";
+        target.style.top = newY + "px";
+      }
+    /*    
+    TODO: 
+    - มีปุ่ม Start
+    - เมื่อคลิกปุ่ม Start จับเวลาถอยหลัง 30 วินาที เเละ ปุ่ม Start หายไป
+    - เมื่อเวลาหมด ให้เเสดง Game over เเละมีปุ่ม Start พร้อมทั้ง reset คะเเนน 
+    */
+    let timeLeft = 30; //กำหนดตัวเเปรจับเวลา
+    let timer;
+
+    function startGame() { //ฟังก์ชันเริ่มต้นเกมตอนคลิกปุ่ม
+        gameRunning = true; // เริ่มเกม
+        document.getElementById("startButton").style.display = "none"; //ซ่อนปุ่มตอน Start
+        document.getElementById("gameOver").style.display = "none"; //ซ่อนข้อความ Game Over! ตอนเริ่มเกม
+        score = 0; //รีเซ็ทคะเเนน
+        timeLeft = 30; //รีเซ็ทเวลา
+        document.getElementById("score").textContent = score; //เเสดงคะเเนนใหม่
+        document.getElementById("timer").textContent = timeLeft; //เเสดงเวลาที่เหลือ
+        
+        let target = document.getElementById("target");
+        target.style.pointerEvents = 'auto'; // ให้คลิกได้หลังจากเริ่มเกม
+
+        timer = setInterval(function () { //เริ่มนับถอยหลัง
+          timeLeft--; //ลดเวลาละวิ
+          document.getElementById("timer").textContent = timeLeft; //เเสดงเวลาที่เหลือ
+          if (timeLeft <= 0) { //หมดเวลา
+            clearInterval(timer); //หยุดจับเวลา
+            endGame(); //จบเกม
+          }
+        }, 1000); //จับใหม่ทุก 1 วิ
+      }
+
+      function endGame() {  //ฟังก์ชันจบเกม
+        gameRunning = false; // หยุดเกม
+        document.getElementById("gameOver").style.display = "block";  //เเสดงข้อความ Game Over!
+        document.getElementById("startButton").style.display = "inline-block"; //เเสดงปุ่ม Start
+        let target = document.getElementById("target");
+        target.style.pointerEvents = 'none'; // ห้ามคลิกหลังจากจบเกม  
+    }
+    </script>
+
+    <!-- เพิ่มปุ่ม Start และข้อความ Game Over ที่นี่ -->
+    <p>เวลาที่เหลือ: <span id="timer">30</span> วินาที</p>
+    <button id="startButton" onclick="startGame()">Start</button>
+    <p id="gameOver" style="display: none;">Game Over!</p>
+    
+  </body>
+</html>
