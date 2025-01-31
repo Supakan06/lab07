@@ -1,0 +1,23 @@
+<!-- ตัวอย่างที่ 12: นับจำนวนคลิก(Click Counter) -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>ตัวอย่างที่ 12</title>
+  </head>
+  <body>
+    <div id="example12">
+    <h3>12. ตัวนับจำนวนคลิก</h3>
+    <button onclick="incrementCounter()">คลิกที่นี่</button>
+    <p>จำนวนคลิก: <span id="counter">0</span></p>
+
+    <script> 
+      let clickCount = 0; //ตัวเเปรเก็บจำนวนคลิก
+      function incrementCounter() { // ฟังก์ชันเพิ่มจำนวนคลิก
+        clickCount++; // เพิ่มค่าตัวนับ
+        document.getElementById("counter").textContent = clickCount; //อัพเดทข้อความเเสดงจำนวนคลิก
+      }
+    </script>
+  </body>
+</html>
